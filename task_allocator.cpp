@@ -74,9 +74,6 @@ bool operator!=(const SimpleAllocator<T>&, const SimpleAllocator<U>&) {
 
 
 int main() {
- //MyAllocator<std::pair <const int, int>> 
-    //std::map<int, int, SimpleAllocator<std::pair <const int, const int>>> Mymap;  
- //   std::map<int, int, std::less<int>,SimpleAllocator<int>> Mymap; 
     std::map<int, int> defaultmap;  
     for (int i = 0; i < 10; ++i) {
         if (i==1)defaultmap.insert({1,1});
