@@ -8,7 +8,6 @@
 #include "ip_address.h"
 
 template<typename T, class _Ax = SimpleAllocator<T> >
-//template<typename T>
 class ip_base
 {
 public:

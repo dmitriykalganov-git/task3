@@ -36,8 +36,6 @@ void ip_address::print_ip()
  int num2 = std::to_integer<int>(B);
  int num3 = std::to_integer<int>(C);
  int num4 = std::to_integer<int>(D);
- //  std::string str = 4;
  std::cout << num1 << "." << num2 << "." << num3 << "." << num4 <<std::endl;
-//printf("%d",num1);
 }
 //--------------------------------------------------------------------
