@@ -57,23 +57,6 @@ std::cout << "------My container allocator------" << std::endl;
 for (int i = 0; i < 10; ++i) {
         std::cout << myContainerAlloc.ReadItem(i) << "\n";
     }
-/*  std::list<int> myList;
-    std::list<int>::iterator it1 = myList.begin();
-    for (int i = 0; i < 10; ++i) {
-        myList.insert(it1, i);
-        };
-
-
-   std::list<int,SimpleAllocator<int>> myContainer;
-    std::list<int>::iterator it2 = myContainer.begin();
-    for (int i = 0; i < 10; ++i) {
-        myContainer.insert(it2, i);
-        };
-std::cout << "------My conteiner------" << std::endl;
-    for (auto iter = myList.begin(); iter != myList.end(); ++iter) { std::cout << *iter << "\n"; }
-std::cout << "------My conteiner allocator------" << std::endl;    
-    for (auto iter = myContainer.begin(); iter != myContainer.end(); ++iter) { std::cout << *iter << "\n"; }
-*/
    
     return 0;
 }
