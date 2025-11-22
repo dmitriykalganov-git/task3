@@ -3,61 +3,61 @@
 #include <map>
 #include <list> 
 #include <cstddef>
-#include "ip_address.h" 
-#include "ip_base.h" 
-#include "SimpleAllocator.h" 
-
+#include "UList.h" 
+#include "pool_allocator.h" 
 
 int main() {
-    std::map<int, int> defaultmap;  
+     std::map<int, int> defaultmap;  
     for (int i = 0; i < 10; ++i) {
         if (i==1)defaultmap.insert({1,1});
         else defaultmap.insert({i,(i-1)*i});
     }
-    std::map<int, int, std::less<int>,SimpleAllocator<int>> Mymap;
-        for (int i = 0; i < 10; ++i) {
-        if (i==1)Mymap.insert({1,1});
-        else Mymap.insert({i,(i-1)*i});
-    }
-    std::cout << "------Map default------" << std::endl;
+
+    std::cout << "------ Map default ------" << std::endl;
     for (auto iter = defaultmap.begin(); iter != defaultmap.end(); ++iter) 
     { 
         std::cout << iter->first << " ";
         std::cout << iter->second << std::endl;
     }
-    std::cout << "------Map allocator------" << std::endl;
-    for (auto iter = Mymap.begin(); iter != Mymap.end(); ++iter) 
+
+    std::map<int, int, std::less<int>,PoolAllocator<int>> Customap;
+        for (int i = 0; i < 10; ++i) {
+        if (i==1)Customap.insert({1,1});
+        else Customap.insert({i,(i-1)*i});
+    }
+
+    std::cout << "------ Map allocator ------" << std::endl;
+    for (auto iter = Customap.begin(); iter != Customap.end(); ++iter) 
     { 
         std::cout << iter->first << " ";
         std::cout << iter->second << std::endl;
     }
 
-    ip_address ip;
-    ip = "192.168.7.7";
-    ip.print_ip();
-    ip_base<ip_address> base;
-    base.push_back(ip);
-
-    ip_base<int> myContainer;
-    for (int i = 0; i < 10; ++i) {
-        myContainer.push_back(i);
+    UserList<int, std::allocator<Block<int>>> Defaultlist;
+    for (int i = 0; i < 10; ++i) 
+    {
+        Defaultlist.push_back(i);
     }
 
-    ip_base<int,SimpleAllocator<int>> myContainerAlloc(true);
-        for (int i = 0; i < 10; ++i) {
-        myContainerAlloc.push_back(i);
+    std::cout << "------ User list default allocator ------" << std::endl;
+    UserList<int, std::allocator<Block<int>>>::Iterator itdef;
+    for (itdef = Defaultlist.begin(); itdef != Defaultlist.end(); ++itdef)
+    {
+        std::cout << *itdef << std::endl;
     }
 
-std::cout << "------My container------" << std::endl;
-    for (int i = 0; i < 10; ++i) {
-        std::cout << myContainer.ReadItem(i) << "\n";
+    UserList<int, PoolAllocator<Block<int>>> Alloclist;
+    for (int i = 0; i < 10; ++i) 
+    {
+        Alloclist.push_back(i);
     }
-   
-std::cout << "------My container allocator------" << std::endl;    
-for (int i = 0; i < 10; ++i) {
-        std::cout << myContainerAlloc.ReadItem(i) << "\n";
+
+    std::cout << "------ User list custom allocator ------" << std::endl;
+    UserList<int, PoolAllocator<Block<int>>>::Iterator it;
+    for (it = Alloclist.begin(); it != Alloclist.end(); ++it)
+    {
+        std::cout << *it << std::endl;
     }
-   
+
     return 0;
 }
-
