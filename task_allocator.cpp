@@ -20,7 +20,7 @@ int main() {
         std::cout << iter->second << std::endl;
     }
 
-    std::map<int, int, std::less<int>,PoolAllocator<int>> Customap;
+    std::map<int, int, std::less<int>,PoolAllocator<int>> Customap(15);
         for (int i = 0; i < 10; ++i) {
         if (i==1)Customap.insert({1,1});
         else Customap.insert({i,(i-1)*i});
@@ -33,7 +33,8 @@ int main() {
         std::cout << iter->second << std::endl;
     }
 
-    UserList<int, std::allocator<Block<int>>> Defaultlist;
+    UserList<int, std::allocator<Block<int>>> Defaultlist(20);
+ //   UserList<int> Defaultlist;
     for (int i = 0; i < 10; ++i) 
     {
         Defaultlist.push_back(i);
@@ -46,7 +47,7 @@ int main() {
         std::cout << *itdef << std::endl;
     }
 
-    UserList<int, PoolAllocator<Block<int>>> Alloclist;
+    UserList<int, PoolAllocator<Block<int>>> Alloclist(30);
     for (int i = 0; i < 10; ++i) 
     {
         Alloclist.push_back(i);

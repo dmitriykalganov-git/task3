@@ -13,11 +13,12 @@ struct Block
     Block *next;
 };
 
-template <typename T, typename A>
+template <typename T, typename A = std::allocator<T>>
 class UserList
 {
 public:
 UserList(A allocator = A());
+UserList(int B, A allocator = A());
 ~UserList();
 
 void push_back(const T &data);
@@ -85,6 +86,15 @@ UserList<T, A>::UserList(A allocator)
     , alloc(allocator)
 {
 
+}
+
+
+template <typename T, typename A>
+UserList<T, A>::UserList(int B, A allocator)
+    : head(nullptr)
+    , tail(nullptr)
+{
+    PoolAllocator<Block<int>> alloc(B);
 }
 
 template <typename T, typename A>
