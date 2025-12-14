@@ -94,7 +94,7 @@ UserList<T, A>::UserList(int B, A allocator)
     : head(nullptr)
     , tail(nullptr)
 {
-    PoolAllocator<Block<int>> alloc(B);
+//    PoolAllocator<Block<int>> alloc(B);
 }
 
 template <typename T, typename A>

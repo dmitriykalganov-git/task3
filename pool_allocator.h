@@ -5,10 +5,10 @@
 #include <vector>
 #include <memory>
 
-static size_t POOL_BLOCKS = 10;
+//static size_t POOL_BLOCKS = 10;
 
 // SIMPLEST pool allocator - fixed size blocks with free list
-template<typename T>
+template<typename T, size_t L = 10>
 class PoolAllocator {
 private:
     // Our memory pool
@@ -17,7 +17,7 @@ private:
     static size_t block_size;
     static size_t total_blocks;
     static bool initialized;
-    //static size_t POOL_BLOCKS = 10; // Number of blocks in pool
+    const static size_t POOL_BLOCKS = L; // Number of blocks in pool
     
     // Initialize pool with free list
     static void init_pool() {
@@ -45,18 +45,18 @@ public:
     using value_type = T;
     PoolAllocator() 
     {
-        POOL_BLOCKS = 10;
+     //   POOL_BLOCKS = 10;
     };
     
     template<typename U>
-    PoolAllocator(const PoolAllocator<U>&) 
+    PoolAllocator(const PoolAllocator<U,L>&)  
     {
-
+        POOL_BLOCKS = L;
     }
     
     PoolAllocator(int a)
     {
-        POOL_BLOCKS = a;
+      //  POOL_BLOCKS = a;
     }
 
     // Take first block from free list
@@ -129,32 +129,32 @@ public:
 
 
 // Initialize static members
-template<typename T>
-char* PoolAllocator<T>::pool = nullptr;
+template<typename T,size_t L>
+char* PoolAllocator<T,L>::pool = nullptr;
 
 //template<typename T>
 //size_t PoolAllocator<T>::POOL_BLOCKS = 0;
 
-template<typename T>
-void** PoolAllocator<T>::free_list = nullptr;
+template<typename T,size_t L>
+void** PoolAllocator<T,L>::free_list = nullptr;
 
-template<typename T>
-size_t PoolAllocator<T>::block_size = 0;
+template<typename T,size_t L>
+size_t PoolAllocator<T,L>::block_size = 0;
 
-template<typename T>
-size_t PoolAllocator<T>::total_blocks = 0;
+template<typename T,size_t L>
+size_t PoolAllocator<T,L>::total_blocks = 0;
 
-template<typename T>
-bool PoolAllocator<T>::initialized = false;
+template<typename T,size_t L>
+bool PoolAllocator<T,L>::initialized = false;
 
 // Required comparison operators
-template<typename T, typename U>
-bool operator==(const PoolAllocator<T>&, const PoolAllocator<U>&) {
+template<typename T, typename U,size_t L>
+bool operator==(const PoolAllocator<T,L>&, const PoolAllocator<U,L>&) {
     return true;
 }
 
-template<typename T, typename U>
-bool operator!=(const PoolAllocator<T>&, const PoolAllocator<U>&) {
+template<typename T, typename U,size_t L>
+bool operator!=(const PoolAllocator<T,L>&, const PoolAllocator<U,L>&) {
     return false;
 }
 
