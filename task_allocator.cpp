@@ -20,13 +20,13 @@ int main() {
         std::cout << iter->second << std::endl;
     }
 
-    std::map<int, int, std::less<int>,PoolAllocator<int>> Customap;
+  //  std::map<int, int, std::less<int>,PoolAllocator<int>> Customap;
   //      for (int i = 0; i < 10; ++i) {
     //    if (i==1)Customap.insert({1,1});
       //  else Customap.insert({i,(i-1)*i});
    // }
 
-    std::cout << "------ Map allocator ------" << std::endl;
+   // std::cout << "------ Map allocator ------" << std::endl;
     //for (auto iter = Customap.begin(); iter != Customap.end(); ++iter) 
     //{ 
     //    std::cout << iter->first << " ";
