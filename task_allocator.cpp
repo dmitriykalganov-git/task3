@@ -20,18 +20,18 @@ int main() {
         std::cout << iter->second << std::endl;
     }
 
-  //  std::map<int, int, std::less<int>,PoolAllocator<int>> Customap;
-  //      for (int i = 0; i < 10; ++i) {
-    //    if (i==1)Customap.insert({1,1});
-      //  else Customap.insert({i,(i-1)*i});
-   // }
+    std::map<int, int, std::less<int>,PoolAllocator<int,30>> Customap;
+        for (int i = 0; i < 10; ++i) {
+        if (i==1)Customap.insert({1,1});
+        else Customap.insert({i,(i-1)*i});
+    }
 
-   // std::cout << "------ Map allocator ------" << std::endl;
-    //for (auto iter = Customap.begin(); iter != Customap.end(); ++iter) 
-    //{ 
-    //    std::cout << iter->first << " ";
-    //    std::cout << iter->second << std::endl;
-   // }
+    std::cout << "------ Map allocator ------" << std::endl;
+    for (auto iter = Customap.begin(); iter != Customap.end(); ++iter) 
+    { 
+       std::cout << iter->first << " ";
+        std::cout << iter->second << std::endl;
+    }
 
     UserList<int, std::allocator<Block<int>>> Defaultlist;
  //   UserList<int> Defaultlist;

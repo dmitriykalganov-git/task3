@@ -5,8 +5,6 @@
 #include <vector>
 #include <memory>
 
-//static size_t POOL_BLOCKS = 10;
-
 // SIMPLEST pool allocator - fixed size blocks with free list
 template<typename T, size_t L = 10>
 class PoolAllocator {
@@ -17,6 +15,7 @@ private:
     static size_t block_size;
     static size_t total_blocks;
     static bool initialized;
+    //const static size_t POOL_BLOCKS = 10; // Number of blocks in pool
     const static size_t POOL_BLOCKS = L; // Number of blocks in pool
     
     // Initialize pool with free list
@@ -45,20 +44,21 @@ public:
     using value_type = T;
     PoolAllocator() 
     {
-     //   POOL_BLOCKS = 10;
+
     };
     
-    template<typename U>
-    PoolAllocator(const PoolAllocator<U,L>&)  
+    template<typename U, size_t S>
+    PoolAllocator(const PoolAllocator<U,S>&)    
     {
         POOL_BLOCKS = L;
     }
-    
-    PoolAllocator(int a)
-    {
-      //  POOL_BLOCKS = a;
-    }
 
+    template<typename U>
+    struct rebind
+    {
+        typedef PoolAllocator<U, L> other;
+    };
+    
     // Take first block from free list
     T* allocate(size_t n) {
         if (n != 1) {
@@ -105,7 +105,7 @@ public:
         
         std::cout << "Returned block to pool\n";
     }
-    
+ 
     static void print_free_blocks() {
         int count = 0;
         void** current = free_list;
